@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">NewsHomework</string>
+    <string name="fatal">Fatality</string>
+    <string name="unknown">Unknown</string>
+    <string name="title">Title</string>
+    <string name="author">author</string>
 </resources>
