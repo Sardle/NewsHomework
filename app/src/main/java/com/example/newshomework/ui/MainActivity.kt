@@ -22,8 +22,17 @@ class MainActivity : AppCompatActivity() {
 
         val recyclerView = findViewById<RecyclerView>(R.id.recycler)
         val progressBar = findViewById<ProgressBar>(R.id.progress)
+        val adapter = NewsAdapter()
+        recyclerView.adapter = adapter
+        recyclerView.layoutManager = LinearLayoutManager(
+            this@MainActivity,
+            LinearLayoutManager.VERTICAL,
+            false
+        )
 
-        viewModel.apply {
+        with(viewModel) {
+            getNews()
+
             loadingLiveData.observe(this@MainActivity) {
                 progressBar.isVisible = it
             }
@@ -32,15 +41,8 @@ class MainActivity : AppCompatActivity() {
                 Toast.makeText(this@MainActivity, getString(res), Toast.LENGTH_SHORT).show()
             }
 
-            getNews()
             newsLiveData.observe(this@MainActivity) {
-                val adapter = NewsAdapter(it)
-                recyclerView.adapter = adapter
-                recyclerView.layoutManager = LinearLayoutManager(
-                    this@MainActivity,
-                    LinearLayoutManager.VERTICAL,
-                    false
-                )
+                adapter.setItems(it)
             }
         }
     }

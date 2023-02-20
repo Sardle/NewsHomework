@@ -6,9 +6,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.newshomework.R
 import com.example.newshomework.domain.NewsData
 
-class NewsAdapter(
-    private val listCatData: List<NewsData>,
-) : RecyclerView.Adapter<NewsViewHolder>() {
+class NewsAdapter() : RecyclerView.Adapter<NewsViewHolder>() {
+
+    private val listCatData = mutableListOf<NewsData>()
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.rv_news, parent, false)
@@ -20,4 +21,10 @@ class NewsAdapter(
     }
 
     override fun getItemCount(): Int = listCatData.size
+
+    fun setItems(items: List<NewsData>) {
+        listCatData.clear()
+        listCatData.addAll(items)
+        notifyDataSetChanged()
+    }
 }

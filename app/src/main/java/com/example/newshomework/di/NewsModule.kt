@@ -14,11 +14,11 @@ import retrofit2.converter.gson.GsonConverterFactory
 @InstallIn(SingletonComponent::class)
 class NetworkModule {
     @Provides
-    fun getRetrofit(): Retrofit {
+    fun getRetrofit(client: OkHttpClient): Retrofit {
         return Retrofit.Builder()
             .baseUrl("https://newsapi.org/v2/")
             .addConverterFactory(GsonConverterFactory.create())
-            .client(getClient())
+            .client(client)
             .build()
     }
 
@@ -29,12 +29,10 @@ class NetworkModule {
         return OkHttpClient.Builder()
             .addInterceptor(interceptor)
             .build()
-
     }
 
     @Provides
     fun getNewsService(retrofit: Retrofit): NewsService {
         return retrofit.create(NewsService::class.java)
     }
-
 }
