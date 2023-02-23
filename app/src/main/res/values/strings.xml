@@ -4,4 +4,5 @@
     <string name="unknown">Unknown</string>
     <string name="title">Title</string>
     <string name="author">author</string>
+    <string name="list_news_empty">Список новостей пуст</string>
 </resources>

@@ -6,7 +6,6 @@ import retrofit2.http.*
 
 interface NewsService {
 
-    @Headers("x-api-key: 6e2215d6c8824752abea6defbc421007")
     @GET("everything")
-    fun getNews(@Query("q") q: String): Call<NewsArticlesResponse>
+    fun getNews(@Query("q") q: String, @Header("x-api-key") value: String): Call<NewsArticlesResponse>
 }
