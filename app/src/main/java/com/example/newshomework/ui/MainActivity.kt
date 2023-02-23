@@ -2,13 +2,15 @@ package com.example.newshomework.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.view.isVisible
+import androidx.databinding.DataBindingUtil
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.newshomework.R
+import com.example.newshomework.databinding.ActivityMainBinding
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -18,10 +20,13 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        val binding: ActivityMainBinding =
+            DataBindingUtil.setContentView(this, R.layout.activity_main)
 
-        val recyclerView = findViewById<RecyclerView>(R.id.recycler)
-        val progressBar = findViewById<ProgressBar>(R.id.progress)
+        binding.viewModel = viewModel
+        binding.lifecycleOwner = this
+
+        val recyclerView = binding.recycler
         val adapter = NewsAdapter()
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(
@@ -31,11 +36,9 @@ class MainActivity : AppCompatActivity() {
         )
 
         with(viewModel) {
-            getNews()
+            setUserToken()
 
-            loadingLiveData.observe(this@MainActivity) {
-                progressBar.isVisible = it
-            }
+            getNews()
 
             errorLiveData.observe(this@MainActivity) { res ->
                 Toast.makeText(this@MainActivity, getString(res), Toast.LENGTH_SHORT).show()

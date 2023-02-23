@@ -3,28 +3,28 @@ package com.example.newshomework.ui
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.example.newshomework.R
+import com.example.newshomework.databinding.RvNewsBinding
 import com.example.newshomework.domain.NewsData
 
 class NewsAdapter() : RecyclerView.Adapter<NewsViewHolder>() {
 
-    private val listCatData = mutableListOf<NewsData>()
+    private val listNewsData = mutableListOf<NewsData>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): NewsViewHolder {
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.rv_news, parent, false)
-        return NewsViewHolder(view)
+        val layoutInflater = LayoutInflater.from(parent.context)
+        val itemRvNewsBinding = RvNewsBinding.inflate(layoutInflater, parent, false)
+        return NewsViewHolder(itemRvNewsBinding)
     }
 
     override fun onBindViewHolder(holder: NewsViewHolder, position: Int) {
-        holder.onBind(listCatData[position])
+        holder.onBind(listNewsData[position])
     }
 
-    override fun getItemCount(): Int = listCatData.size
+    override fun getItemCount(): Int = listNewsData.size
 
     fun setItems(items: List<NewsData>) {
-        listCatData.clear()
-        listCatData.addAll(items)
+        listNewsData.clear()
+        listNewsData.addAll(items)
         notifyDataSetChanged()
     }
 }
