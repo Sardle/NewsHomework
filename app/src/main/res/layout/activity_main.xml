@@ -9,7 +9,7 @@
             name="viewModel"
             type="com.example.newshomework.ui.NewsViewModel" />
 
-        <import type="android.view.View"/>
+        <import type="android.view.View" />
 
     </data>
 
@@ -18,35 +18,47 @@
         android:layout_height="match_parent"
         tools:context=".ui.MainActivity">
 
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animationView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:empty="@{viewModel.newsLiveData.empty}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:lottie_autoPlay="true"
+            app:lottie_loop="true"
+            app:lottie_url="https://assets5.lottiefiles.com/packages/lf20_qh5z2fdq.json" />
+
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/list_news_empty"
-            android:textSize="40sp"
             android:gravity="center"
+            android:text="@string/list_news_empty"
             android:textColor="@color/black"
+            android:textSize="40sp"
             android:textStyle="italic|bold"
             android:visibility="invisible"
             app:empty="@{viewModel.newsLiveData.empty}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toBottomOf="@+id/animationView" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recycler"
             android:layout_width="match_parent"
             android:layout_height="match_parent" />
 
-        <ProgressBar
-            android:id="@+id/progress"
+        <com.example.newshomework.ui.CustomProgressBarView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:loading="@{viewModel.loadingLiveData}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+            app:layout_constraintTop_toTopOf="parent"
+            app:loading="@{viewModel.loadingLiveData}" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
